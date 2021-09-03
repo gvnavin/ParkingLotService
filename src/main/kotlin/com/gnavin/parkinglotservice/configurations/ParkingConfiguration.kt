@@ -1,8 +1,14 @@
 package com.gnavin.parkinglotservice.configurations
 
-import com.gnavin.parkinglotservice.dbmodels.*
+import com.gnavin.parkinglotservice.business.parking.dbmodels.ParkingArea
+import com.gnavin.parkinglotservice.business.parking.dbmodels.ParkingLot
+import com.gnavin.parkinglotservice.business.parking.respositories.ParkingAreaRepository
+import com.gnavin.parkinglotservice.business.parking.respositories.ParkingLotRepository
+import com.gnavin.parkinglotservice.business.vehicle.dbmodels.Vehicle
+import com.gnavin.parkinglotservice.business.vehicle.respositories.VehicleRepository
+import com.gnavin.parkinglotservice.abstraction.dbmodels.*
 import com.gnavin.parkinglotservice.models.EntityType
-import com.gnavin.parkinglotservice.repositories.*
+import com.gnavin.parkinglotservice.abstraction.repositories.*
 import com.google.gson.Gson
 import org.springframework.boot.ApplicationRunner
 import org.springframework.context.annotation.Bean

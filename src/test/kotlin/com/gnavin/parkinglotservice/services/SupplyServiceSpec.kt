@@ -1,4 +1,4 @@
-import com.gnavin.parkinglotservice.services.SupplyService
+import com.gnavin.parkinglotservice.abstraction.services.SupplyService
 
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe

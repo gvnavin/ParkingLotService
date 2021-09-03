@@ -1,9 +1,10 @@
 package com.gnavin.parkinglotservice.services;
 
+import com.gnavin.parkinglotservice.abstraction.services.SupplyService;
 import com.gnavin.parkinglotservice.models.EntityType;
-import com.gnavin.parkinglotservice.models.Supply;
-import com.gnavin.parkinglotservice.repositories.ParkingAreaRepository;
-import com.gnavin.parkinglotservice.repositories.ParkingLotRepository;
+import com.gnavin.parkinglotservice.abstraction.dto.SupplyDto;
+import com.gnavin.parkinglotservice.business.parking.respositories.ParkingAreaRepository;
+import com.gnavin.parkinglotservice.business.parking.respositories.ParkingLotRepository;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -29,13 +30,13 @@ public class SupplyServiceTest {
 
     @Test
     public void testFindAllSupplies() {
-        List<Supply> result = supplyService.findAllSupplies();
-        Assert.assertEquals(result, Arrays.<Supply>asList(new Supply("id", EntityType.PARKING_LOT, "entityAsJson")));
+        List<SupplyDto> result = supplyService.findAllSupplies();
+        Assert.assertEquals(result, Arrays.<SupplyDto>asList(new SupplyDto("id", EntityType.PARKING_LOT, "entityAsJson")));
     }
 
     @Test
     public void testSaveSupplies() {
-        supplyService.saveSupplies(EntityType.PARKING_LOT, Arrays.<Supply>asList(new Supply("id", EntityType.PARKING_LOT, "entityAsJson")));
+        supplyService.saveSupplies(EntityType.PARKING_LOT, Arrays.<SupplyDto>asList(new SupplyDto("id", EntityType.PARKING_LOT, "entityAsJson")));
     }
 }
 
