@@ -15,7 +15,7 @@ class DispatchResource(val service: DispatchService) {
 
         val allDispatches = service.findAllDispatches()
         println("allDispatches = ${allDispatches}")
-        return allDispatches;
+        return allDispatches
     }
 
     @PostMapping("/dispatch/start/demandId/{demandId}")
@@ -23,7 +23,7 @@ class DispatchResource(val service: DispatchService) {
         return service.dispatchStart(demandId)
     }
 
-    @PostMapping("/dispatch/done/dispatch/{dispatchId}")
+    @PostMapping("/dispatch/done/dispatchId/{dispatchId}")
     fun dispatchDone(@PathVariable dispatchId: String): Dispatch {
         return service.dispatchDone(dispatchId)
     }

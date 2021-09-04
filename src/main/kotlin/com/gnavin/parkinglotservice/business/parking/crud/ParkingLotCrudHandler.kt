@@ -19,31 +19,36 @@ class ParkingLotCrudHandler(
         val parkingAreas = supplies.map {
             var gson = Gson()
             val fromJson = gson.fromJson<ParkingLot>(it.entityAsJson, ParkingLot::class.java)
-            println("fromJson = ${fromJson}")
+            if (fromJson._id == null) {
+                fromJson._id =   it.id.toString()
+            }
+            println("ParkingLotCrudHandler.save fromJson = ${fromJson}")
             fromJson
         }
+        println("ParkingLotCrudHandler.save parkingAreas: $parkingAreas")
         parkingLotRepository.saveAll(parkingAreas)
     }
 
     fun findAllLotsWithParkingArea(): List<SupplyDto> {
 
         val allParkingLots = parkingLotRepository.findAllParkingLots()
-        println("allParkingLots = ${allParkingLots}")
+        println("ParkingLotCrudHandler.findAllLotsWithParkingArea allParkingLots = ${allParkingLots}")
 
         //todo: fix me
         val parkingArea = parkingAreaCrudHandler.findParkingAreaById("");
+        println("ParkingLotCrudHandler.findAllLotsWithParkingArea parkingArea = $parkingArea")
 
         val parkingLotDtos: List<ParkingLotDto> = allParkingLots.map {
             ParkingLotDto(it.id!!, it.parkingAreaId, parkingArea.owner, parkingArea.location)
         }
-        println("parkingLotDtos = ${parkingLotDtos}")
+        println("ParkingLotCrudHandler.findAllLotsWithParkingArea parkingLotDtos = ${parkingLotDtos}")
 
         val listOfSupplies: List<SupplyDto> = parkingLotDtos.map {
             var gson = Gson()
             val entityAsJson = gson.toJson(it)
             SupplyDto(it.id, EntityType.PARKING_LOT, entityAsJson)
         }
-        println("listOfSupplies = ${listOfSupplies}")
+        println("ParkingLotCrudHandler.findAllLotsWithParkingArea listOfSupplies = ${listOfSupplies}")
 
         return listOfSupplies
     }
