@@ -6,7 +6,7 @@ import com.gnavin.parkinglotservice.abstraction.dto.DemandDto
 object FromDemandDto {
 
     fun batchConvert(demandDtos: List<DemandDto>): List<Demand> {
-        return demandDtos.map { Demand(it.id!!, it.type, it.entityAsJson) }
+        return demandDtos.map { Demand(it.id!!, it.type, it.id!!, it.entityAsJson) }
     }
 
 }

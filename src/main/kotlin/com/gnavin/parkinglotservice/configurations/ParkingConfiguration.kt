@@ -57,8 +57,8 @@ class ParkingConfiguration {
 
         println("-------------------- DEMAND --------------------")
 
-        val demand1 = Demand("demand_1", EntityType.PARKING_LOT, vehicle1toJson)
-        val demand2 = Demand("demand_2", EntityType.PARKING_LOT, vehicle1toJson)
+        val demand1 = Demand("demand_1", EntityType.PARKING_LOT, vehicle1.id!!, vehicle1toJson)
+        val demand2 = Demand("demand_2", EntityType.PARKING_LOT, vehicle1.id!!, vehicle1toJson)
 
         val savedDemand1 = demandRepository.save(demand1)
         val savedDemand2 = demandRepository.save(demand2)

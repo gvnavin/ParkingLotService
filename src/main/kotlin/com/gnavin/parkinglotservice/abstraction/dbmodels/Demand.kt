@@ -7,7 +7,7 @@ import org.springframework.data.domain.Persistable
 import org.springframework.data.relational.core.mapping.Table
 
 @Table("DEMAND")
-data class Demand(@Id val _id:String, val type: EntityType, val entityAsJson: String): Persistable<String> {
+data class Demand(@Id val _id:String, val type: EntityType, val entityId: String, val entityAsJson: String): Persistable<String> {
     override fun getId(): String? {
         return _id
     }

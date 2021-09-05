@@ -1,11 +1,10 @@
 package com.gnavin.parkinglotservice.abstraction.resources
 
 import com.gnavin.parkinglotservice.abstraction.dbmodels.Dispatch
+import com.gnavin.parkinglotservice.abstraction.dto.DispatchDto
 import com.gnavin.parkinglotservice.abstraction.services.DispatchService
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RestController
+import com.gnavin.parkinglotservice.models.EntityType
+import org.springframework.web.bind.annotation.*
 
 @RestController
 class DispatchResource(val service: DispatchService) {
@@ -26,5 +25,10 @@ class DispatchResource(val service: DispatchService) {
     @PostMapping("/dispatch/done/dispatchId/{dispatchId}")
     fun dispatchDone(@PathVariable dispatchId: String): Dispatch {
         return service.dispatchDone(dispatchId)
+    }
+
+    @GetMapping("/dispatch/start/type/{type}")
+    fun getDispatchesByFilters(@PathVariable type: String, @RequestParam(name = "color") color: String): List<DispatchDto> {
+        return service.findDispatchesByFilters(EntityType.valueOf(type.uppercase()), color)
     }
 }

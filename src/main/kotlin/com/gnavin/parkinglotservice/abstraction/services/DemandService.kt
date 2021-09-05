@@ -3,7 +3,7 @@ import com.gnavin.parkinglotservice.abstraction.dbmodels.Demand
 import com.gnavin.parkinglotservice.abstraction.dto.DemandDto
 import com.gnavin.parkinglotservice.abstraction.repositories.DemandRepository
 import com.gnavin.parkinglotservice.converters.fromdto.FromDemandDto
-import com.gnavin.parkinglotservice.factories.BusinessHandlerDelegator
+import com.gnavin.parkinglotservice.delegator.BusinessHandlerDelegator
 import com.gnavin.parkinglotservice.models.EntityType
 import org.springframework.stereotype.Service
 import java.util.*
@@ -23,4 +23,12 @@ class DemandService(private val businessHandlerDelegator: BusinessHandlerDelegat
         val demands = FromDemandDto.batchConvert(demandDtos)
         demandRepository.saveAll(demands)
     }
+
+     fun validate(demandId: String) {
+        val denamdOpt: Optional<Demand> = demandRepository.findById(demandId)
+        if (!denamdOpt.isPresent) {
+            throw IllegalArgumentException("demandId is not valid")
+        }
+    }
+
 }

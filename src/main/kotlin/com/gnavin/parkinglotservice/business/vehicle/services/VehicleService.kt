@@ -18,4 +18,8 @@ class VehicleService(private val vehicleRepository: VehicleRepository) {
         }
         vehicleRepository.saveAll(vehicles)
     }
+
+    fun findVehiclesInParkingLotWithFilters(color: String): List<Vehicle> {
+        return vehicleRepository.findVehiclesInParkingLotWithFilters(color)
+    }
 }

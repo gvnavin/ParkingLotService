@@ -1,7 +1,7 @@
 package com.gnavin.parkinglotservice.abstraction.services
 
 import com.gnavin.parkinglotservice.abstraction.dto.SupplyDto
-import com.gnavin.parkinglotservice.factories.BusinessHandlerDelegator
+import com.gnavin.parkinglotservice.delegator.BusinessHandlerDelegator
 import com.gnavin.parkinglotservice.models.EntityType
 import org.springframework.stereotype.Service
 

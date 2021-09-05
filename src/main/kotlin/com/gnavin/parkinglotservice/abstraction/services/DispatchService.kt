@@ -2,9 +2,9 @@ package com.gnavin.parkinglotservice.abstraction.services
 
 import com.gnavin.parkinglotservice.abstraction.dbmodels.Demand
 import com.gnavin.parkinglotservice.abstraction.dbmodels.Dispatch
-import com.gnavin.parkinglotservice.abstraction.repositories.DemandRepository
+import com.gnavin.parkinglotservice.abstraction.dto.DispatchDto
 import com.gnavin.parkinglotservice.abstraction.repositories.DispatchRepository
-import com.gnavin.parkinglotservice.factories.BusinessHandlerDelegator
+import com.gnavin.parkinglotservice.delegator.BusinessHandlerDelegator
 import com.gnavin.parkinglotservice.models.EntityType
 import org.springframework.stereotype.Service
 import java.util.*
@@ -12,7 +12,7 @@ import java.util.*
 @Service
 class DispatchService(
     private val dispatchRepository: DispatchRepository,
-    private val demandRepository: DemandRepository,
+    private val demandService: DemandService,
     private val businessHandlerDelegator: BusinessHandlerDelegator
 ) {
 
@@ -21,13 +21,13 @@ class DispatchService(
     }
 
     fun dispatchStart(demandId: String): Dispatch {
-        validateDemand(demandId)
+        demandService.validate(demandId)
 
         val parkingAreaId = "pa1"
 
         val supplyId = businessHandlerDelegator.handleDispatchStart(
             parkingAreaId,
-            Demand(parkingAreaId, EntityType.PARKING_AREA, "")
+            Demand(parkingAreaId, EntityType.PARKING_AREA, "", "")
         )
 
         val dispatch = Dispatch(
@@ -52,10 +52,7 @@ class DispatchService(
         return dispatchOpt.get()
     }
 
-    private fun validateDemand(demandId: String) {
-        val denamdOpt: Optional<Demand> = demandRepository.findById(demandId)
-        if (!denamdOpt.isPresent) {
-            throw IllegalArgumentException("demandId is not valid")
-        }
+    fun findDispatchesByFilters(type: EntityType, color: String): List<DispatchDto> {
+        return businessHandlerDelegator.handleFindDispatchesByFilters(type, color);
     }
 }

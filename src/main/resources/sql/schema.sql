@@ -26,6 +26,7 @@ DROP TABLE DEMAND IF EXISTS;
 CREATE TABLE IF NOT EXISTS DEMAND (
     _id                    VARCHAR(60)  PRIMARY KEY,
     type                   VARCHAR      NOT NULL,
+    entity_id              VARCHAR      NOT NULL,
     entity_as_json         VARCHAR      NOT NULL
 );
 

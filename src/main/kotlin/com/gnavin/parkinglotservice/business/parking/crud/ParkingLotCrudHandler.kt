@@ -52,4 +52,5 @@ class ParkingLotCrudHandler(
 
         return listOfSupplies
     }
+
 }
