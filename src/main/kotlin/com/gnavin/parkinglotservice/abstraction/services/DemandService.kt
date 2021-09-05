@@ -13,8 +13,8 @@ class DemandService(private val businessHandlerDelegator: BusinessHandlerDelegat
 
     fun findAllDemands(): List<Demand> {
         return demandRepository.findAllDemands()
-
     }
+
     fun saveDemand(type: EntityType, demandDtos: List<DemandDto>) {
 
         businessHandlerDelegator.handleDemands(type, demandDtos)

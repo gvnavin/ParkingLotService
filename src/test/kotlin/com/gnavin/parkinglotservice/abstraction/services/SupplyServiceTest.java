@@ -1,10 +1,8 @@
-package com.gnavin.parkinglotservice.services;
+package com.gnavin.parkinglotservice.abstraction.services;
 
-import com.gnavin.parkinglotservice.abstraction.services.SupplyService;
-import com.gnavin.parkinglotservice.models.EntityType;
 import com.gnavin.parkinglotservice.abstraction.dto.SupplyDto;
-import com.gnavin.parkinglotservice.business.parking.respositories.ParkingAreaRepository;
-import com.gnavin.parkinglotservice.business.parking.respositories.ParkingLotRepository;
+import com.gnavin.parkinglotservice.delegator.BusinessHandlerDelegator;
+import com.gnavin.parkinglotservice.models.EntityType;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -15,11 +13,11 @@ import org.testng.annotations.Test;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.mockito.Mockito.*;
+
 public class SupplyServiceTest {
     @Mock
-    ParkingLotRepository parkingLotRepository;
-    @Mock
-    ParkingAreaRepository parkingAreaRepository;
+    BusinessHandlerDelegator businessHandlerDelegator;
     @InjectMocks
     SupplyService supplyService;
 
