@@ -1,9 +1,11 @@
 package com.gnavin.parkinglotservice.business.parking.services
 
 import com.gnavin.parkinglotservice.abstraction.dbmodels.Demand
+import com.gnavin.parkinglotservice.abstraction.dto.ParkingLotDto
 import com.gnavin.parkinglotservice.abstraction.dto.SupplyDto
 import com.gnavin.parkinglotservice.business.parking.crud.ParkingAreaCrudHandler
 import com.gnavin.parkinglotservice.business.parking.crud.ParkingLotCrudHandler
+import com.gnavin.parkinglotservice.business.parking.dbmodels.ParkingLot
 import com.gnavin.parkinglotservice.business.parking.handlers.ParkingLotAllocator
 import com.gnavin.parkinglotservice.models.EntityType
 import org.springframework.stereotype.Service
@@ -29,5 +31,9 @@ class ParkingService(private val parkingAreaCrudHandler: ParkingAreaCrudHandler,
     fun findSuitableAvailableParkingLotByParkingAreaId(parkingAreaId: String, demand: Demand): String {
         val (_id, _) = parkingLotAllocator.allocate(parkingAreaId, demand)
         return _id!!
+    }
+
+    fun findParkingLotByParkedVehicleId(id: String): List<ParkingLotDto> {
+        return parkingLotCrudHandler.findParkingLotByParkedVehicleId(id)
     }
 }

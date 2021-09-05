@@ -52,7 +52,7 @@ class DispatchService(
         return dispatchOpt.get()
     }
 
-    fun findDispatchesByFilters(type: EntityType, color: String): List<DispatchDto> {
-        return businessHandlerDelegator.handleFindDispatchesByFilters(type, color);
+    fun findDispatchesByFilters(type: EntityType, requiredEntityType: EntityType, filterKey1: String, filterValue1: String): List<DispatchDto> {
+        return businessHandlerDelegator.handleFindDispatchesByFilters(type, requiredEntityType, filterKey1, filterValue1);
     }
 }

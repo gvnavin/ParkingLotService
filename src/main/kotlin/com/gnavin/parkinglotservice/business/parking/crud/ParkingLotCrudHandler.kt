@@ -33,15 +33,7 @@ class ParkingLotCrudHandler(
 
         val allParkingLots = parkingLotRepository.findAllParkingLots()
         println("ParkingLotCrudHandler.findAllLotsWithParkingArea allParkingLots = ${allParkingLots}")
-
-        //todo: fix me
-        val parkingArea = parkingAreaCrudHandler.findParkingAreaById("");
-        println("ParkingLotCrudHandler.findAllLotsWithParkingArea parkingArea = $parkingArea")
-
-        val parkingLotDtos: List<ParkingLotDto> = allParkingLots.map {
-            ParkingLotDto(it.id!!, it.parkingAreaId, parkingArea.owner, parkingArea.location)
-        }
-        println("ParkingLotCrudHandler.findAllLotsWithParkingArea parkingLotDtos = ${parkingLotDtos}")
+        val parkingLotDtos: List<ParkingLotDto> = mergeParkingLotAndParkingArea(allParkingLots)
 
         val listOfSupplies: List<SupplyDto> = parkingLotDtos.map {
             var gson = Gson()
@@ -51,6 +43,23 @@ class ParkingLotCrudHandler(
         println("ParkingLotCrudHandler.findAllLotsWithParkingArea listOfSupplies = ${listOfSupplies}")
 
         return listOfSupplies
+    }
+
+    private fun mergeParkingLotAndParkingArea(parkingLots: List<ParkingLot>): List<ParkingLotDto> {
+        //todo: fix me
+        val parkingArea = parkingAreaCrudHandler.findParkingAreaById("");
+        println("ParkingLotCrudHandler.findAllLotsWithParkingArea parkingArea = $parkingArea")
+
+        val parkingLotDtos: List<ParkingLotDto> = parkingLots.map {
+            ParkingLotDto(it.id!!, it.parkingAreaId, parkingArea.owner, parkingArea.location)
+        }
+        println("ParkingLotCrudHandler.findAllLotsWithParkingArea parkingLotDtos = ${parkingLotDtos}")
+        return parkingLotDtos
+    }
+
+    fun findParkingLotByParkedVehicleId(id: String): List<ParkingLotDto> {
+        val parkingLots = parkingLotRepository.findParkingLotByParkedVehicleId(id)
+        return mergeParkingLotAndParkingArea(parkingLots)
     }
 
 }

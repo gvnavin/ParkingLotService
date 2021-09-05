@@ -13,7 +13,7 @@ class DispatchResource(val service: DispatchService) {
     fun getAll(): List<Dispatch> {
 
         val allDispatches = service.findAllDispatches()
-        println("allDispatches = ${allDispatches}")
+        println("DispatchResource.getAll allDispatches = ${allDispatches}")
         return allDispatches
     }
 
@@ -28,7 +28,26 @@ class DispatchResource(val service: DispatchService) {
     }
 
     @GetMapping("/dispatch/start/type/{type}")
-    fun getDispatchesByFilters(@PathVariable type: String, @RequestParam(name = "color") color: String): List<DispatchDto> {
-        return service.findDispatchesByFilters(EntityType.valueOf(type.uppercase()), color)
+    fun getDispatchesByFilters(
+        @PathVariable type: String,
+        @RequestParam(name = "requiredEntityType") requiredEntityType: String,
+        @RequestParam(name = "filterKey1") filterKey1: String,
+        @RequestParam(name = "filterValue1") filterValue1: String
+    ): List<DispatchDto> {
+
+        println(
+            "DispatchResource.getDispatchesByFilters type = [${type}], " +
+                    "requiredEntityType = [${requiredEntityType}], " +
+                    "filterKey1 = [${filterKey1}], " +
+                    "filterValue1 = [${filterValue1}]"
+        )
+
+        val enumType = EntityType.valueOf(type.uppercase())
+        val enumRequiredEntityType = EntityType.valueOf(requiredEntityType.uppercase())
+
+
+        return service.findDispatchesByFilters(
+            enumType, enumRequiredEntityType, filterKey1, filterValue1
+        )
     }
 }

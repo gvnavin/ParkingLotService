@@ -5,7 +5,6 @@ import com.gnavin.parkinglotservice.abstraction.dto.DemandDto
 import com.gnavin.parkinglotservice.abstraction.dto.DispatchDto
 import com.gnavin.parkinglotservice.abstraction.dto.SupplyDto
 import com.gnavin.parkinglotservice.business.parking.services.ParkingService
-import com.gnavin.parkinglotservice.business.vehicle.dbmodels.Vehicle
 import com.gnavin.parkinglotservice.business.vehicle.services.VehicleService
 import com.gnavin.parkinglotservice.converters.todto.ToDispatchDto
 import com.gnavin.parkinglotservice.models.EntityType
@@ -38,10 +37,20 @@ class BusinessHandlerDelegator(val parkingService: ParkingService,
         return parkingService.findAllSupplies()
     }
 
-    fun handleFindDispatchesByFilters(type: EntityType, color: String): List<DispatchDto> {
+    fun handleFindDispatchesByFilters(type: EntityType, requiredEntityType: EntityType, filterKey1: String, filterValue1: String): List<DispatchDto> {
         if (type == EntityType.PARKING_LOT) {
-            val vehicles = vehicleService.findVehiclesInParkingLotWithFilters(color)
-            return ToDispatchDto.batchConvert(vehicles)
+            if (requiredEntityType == EntityType.VEHICLE) {
+                if (filterKey1 == "color") {
+                    val vehicles = vehicleService.findVehiclesInParkingLotWithColor(filterValue1)
+                    return ToDispatchDto.batchConvertVehicles(vehicles)
+                }
+            } else if (requiredEntityType == EntityType.PARKING_LOT) {
+                if (filterKey1 == "id") {
+                    val parkingLots = parkingService.findParkingLotByParkedVehicleId(filterValue1)
+                    return ToDispatchDto.batchConvertParkingLotDtos(parkingLots)
+                }
+            }
+
         }
         return emptyList()
     }
