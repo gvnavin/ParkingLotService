@@ -13,7 +13,7 @@ class VehicleService(private val vehicleRepository: VehicleRepository) {
         val vehicles = demandDtos.map {
             var gson = Gson()
             val fromJson = gson.fromJson<Vehicle>(it.entityAsJson, Vehicle::class.java)
-            println("fromJson = ${fromJson}")
+            println("VehicleService.saveAll fromJson = ${fromJson}")
             fromJson
         }
         vehicleRepository.saveAll(vehicles)
