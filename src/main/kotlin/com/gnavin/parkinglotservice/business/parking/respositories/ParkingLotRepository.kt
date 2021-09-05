@@ -22,4 +22,13 @@ interface ParkingLotRepository: CrudRepository<ParkingLot, String> {
             ON PL._ID = TT.SUPPLY_ID;
     """)
     fun findParkingLotByParkedVehicleId(id: String): List<ParkingLot>
+
+    @Query("""
+        SELECT PL.* FROM PARKING_LOT as PL INNER JOIN (
+            SELECT D.SUPPLY_ID FROM VEHICLE AS V INNER JOIN (
+                SELECT DEMAND.ENTITY_ID, DISPATCH.SUPPLY_ID FROM DISPATCH INNER JOIN DEMAND ON DISPATCH.DEMAND_ID = DEMAND._ID WHERE END_TIMESTAMP=0
+            ) AS D ON V._ID = D.ENTITY_ID WHERE V.COLOR = :color
+        ) AS TT ON PL._ID = TT.SUPPLY_ID
+    """)
+    fun findParkingLotByParkedVehicleColor(color: String): List<ParkingLot>
 }

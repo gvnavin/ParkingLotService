@@ -62,4 +62,9 @@ class ParkingLotCrudHandler(
         return mergeParkingLotAndParkingArea(parkingLots)
     }
 
+    fun findParkingLotByParkedVehicleColor(color: String): List<ParkingLotDto> {
+        val parkingLots = parkingLotRepository.findParkingLotByParkedVehicleColor(color)
+        return mergeParkingLotAndParkingArea(parkingLots)
+    }
+
 }

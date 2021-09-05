@@ -36,4 +36,8 @@ class ParkingService(private val parkingAreaCrudHandler: ParkingAreaCrudHandler,
     fun findParkingLotByParkedVehicleId(id: String): List<ParkingLotDto> {
         return parkingLotCrudHandler.findParkingLotByParkedVehicleId(id)
     }
+
+    fun findParkingLotByParkedVehicleColor(color: String): List<ParkingLotDto> {
+        return parkingLotCrudHandler.findParkingLotByParkedVehicleColor(color)
+    }
 }

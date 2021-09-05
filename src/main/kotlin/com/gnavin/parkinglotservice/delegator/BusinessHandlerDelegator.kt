@@ -48,7 +48,11 @@ class BusinessHandlerDelegator(val parkingService: ParkingService,
                 if (filterKey1 == "id") {
                     val parkingLots = parkingService.findParkingLotByParkedVehicleId(filterValue1)
                     return ToDispatchDto.batchConvertParkingLotDtos(parkingLots)
+                } else if (filterKey1 == "color") {
+                    val parkingLots = parkingService.findParkingLotByParkedVehicleColor(filterValue1)
+                    return ToDispatchDto.batchConvertParkingLotDtos(parkingLots)
                 }
+
             }
 
         }

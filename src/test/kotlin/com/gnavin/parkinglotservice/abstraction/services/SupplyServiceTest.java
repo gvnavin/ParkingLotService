@@ -18,6 +18,7 @@ import static org.mockito.Mockito.*;
 public class SupplyServiceTest {
     @Mock
     BusinessHandlerDelegator businessHandlerDelegator;
+
     @InjectMocks
     SupplyService supplyService;
 
