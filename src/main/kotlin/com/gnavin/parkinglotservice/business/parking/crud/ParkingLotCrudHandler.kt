@@ -14,7 +14,7 @@ class ParkingLotCrudHandler(
     private val parkingLotRepository: ParkingLotRepository
     ) {
 
-    fun save(supplies: List<SupplyDto>) {
+    fun save(supplies: List<SupplyDto>): MutableIterable<ParkingLot> {
 
         val parkingAreas = supplies.map {
             var gson = Gson()
@@ -26,7 +26,7 @@ class ParkingLotCrudHandler(
             fromJson
         }
         println("ParkingLotCrudHandler.save parkingAreas: $parkingAreas")
-        parkingLotRepository.saveAll(parkingAreas)
+        return parkingLotRepository.saveAll(parkingAreas)
     }
 
     fun findAllLotsWithParkingArea(): List<SupplyDto> {

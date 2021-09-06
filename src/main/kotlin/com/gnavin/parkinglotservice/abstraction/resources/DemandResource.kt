@@ -5,6 +5,7 @@ import com.gnavin.parkinglotservice.abstraction.dto.DemandDto
 import com.gnavin.parkinglotservice.abstraction.services.DemandService
 import com.gnavin.parkinglotservice.models.EntityType
 import com.gnavin.parkinglotservice.models.GenericResponse
+import com.google.gson.Gson
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
@@ -26,9 +27,11 @@ class DemandResource(val service: DemandService) {
         demandDtos.filter { it.id.isNullOrBlank() }.forEach { it.id = UUID.randomUUID().toString() }
         println("SupplyResource.saveSupplies supplies = ${demandDtos}")
 
-
         service.saveDemand(EntityType.valueOf(type.uppercase()), demandDtos)
-        return GenericResponse(200, "SUCCESS", "demands of type ${type} saved successfully")
+        return GenericResponse(200, "SUCCESS",
+            "demands of type ${type} saved successfully",
+            Gson().toJson(demandDtos)
+        )
     }
 
 }

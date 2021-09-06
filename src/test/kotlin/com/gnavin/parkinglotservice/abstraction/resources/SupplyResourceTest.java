@@ -43,7 +43,7 @@ public class SupplyResourceTest {
     @Test
     public void testSaveSupplies() {
         GenericResponse result = supplyResource.saveSupplies("type", Arrays.<SupplyDto>asList(new SupplyDto("id", EntityType.PARKING_LOT, "entityAsJson")));
-        Assert.assertEquals(result, new GenericResponse(0, "status", "message"));
+        Assert.assertEquals(result, new GenericResponse(0, "status", "message", ""));
     }
 
     @Test

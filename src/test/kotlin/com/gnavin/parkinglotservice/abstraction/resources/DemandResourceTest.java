@@ -44,7 +44,7 @@ public class DemandResourceTest {
     @Test
     public void testPostBatchDemand() {
         GenericResponse result = demandResource.postBatchDemand("type", Arrays.<DemandDto>asList(new DemandDto("id", EntityType.PARKING_LOT, "entityAsJson")));
-        Assert.assertEquals(result, new GenericResponse(0, "status", "message"));
+        Assert.assertEquals(result, new GenericResponse(0, "status", "message", ""));
     }
 
     @Test

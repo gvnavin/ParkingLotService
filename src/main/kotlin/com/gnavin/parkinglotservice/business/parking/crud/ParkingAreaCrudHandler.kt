@@ -10,7 +10,7 @@ import java.util.*
 @Component
 class ParkingAreaCrudHandler(private val parkingAreaRepository: ParkingAreaRepository) {
 
-    fun save(supplies: List<SupplyDto>) {
+    fun save(supplies: List<SupplyDto>): MutableIterable<ParkingArea> {
 
         val parkingAreas = supplies.map {
             var gson = Gson()
@@ -21,7 +21,7 @@ class ParkingAreaCrudHandler(private val parkingAreaRepository: ParkingAreaRepos
             println("ParkingAreaCrudHandler.save fromJson = ${fromJson}")
             fromJson
         }
-        parkingAreaRepository.saveAll(parkingAreas)
+        return parkingAreaRepository.saveAll(parkingAreas)
     }
 
     fun findParkingAreaById(id: String): ParkingArea {

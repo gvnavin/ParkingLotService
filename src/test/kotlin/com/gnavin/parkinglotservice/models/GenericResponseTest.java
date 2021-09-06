@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class GenericResponseTest {
-    GenericResponse genericResponse = new GenericResponse(0, "status", "message");
+    GenericResponse genericResponse = new GenericResponse(0, "status", "message", "");
 
     @Test
     public void testGetStatusCode() {
@@ -44,8 +44,8 @@ public class GenericResponseTest {
 
     @Test
     public void testCopy() {
-        GenericResponse result = genericResponse.copy(0, "status", "message");
-        Assert.assertEquals(result, new GenericResponse(0, "status", "message"));
+        GenericResponse result = genericResponse.copy(0, "status", "message", "");
+        Assert.assertEquals(result, new GenericResponse(0, "status", "message", ""));
     }
 
     @Test

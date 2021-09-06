@@ -4,6 +4,7 @@ import com.gnavin.parkinglotservice.models.EntityType
 import com.gnavin.parkinglotservice.models.GenericResponse
 import com.gnavin.parkinglotservice.abstraction.dto.SupplyDto
 import com.gnavin.parkinglotservice.abstraction.services.SupplyService
+import com.google.gson.Gson
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
@@ -27,6 +28,9 @@ class SupplyResource(val service: SupplyService) {
         println("SupplyResource.saveSupplies supplies = ${supplies}")
 
         service.saveSupplies(EntityType.valueOf(type.uppercase()), supplies)
-        return GenericResponse(200, "SUCCESS", "supplies of type ${type} saved successfully")
+        return GenericResponse(200, "SUCCESS",
+            "supplies of type ${type} saved successfully",
+            ""
+        )
     }
 }
