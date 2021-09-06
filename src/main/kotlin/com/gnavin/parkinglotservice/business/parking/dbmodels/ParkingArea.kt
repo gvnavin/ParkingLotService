@@ -5,7 +5,7 @@ import org.springframework.data.domain.Persistable
 import org.springframework.data.relational.core.mapping.Table
 
 @Table("PARKING_AREA")
-data class ParkingArea(@Id var _id: String?, val location:String, val owner:String): Persistable<String> {
+data class ParkingArea(@Id var _id: String?, var childParkingAreaIds: String, val location:String, val owner:String): Persistable<String> {
     override fun getId(): String? {
         return _id
     }

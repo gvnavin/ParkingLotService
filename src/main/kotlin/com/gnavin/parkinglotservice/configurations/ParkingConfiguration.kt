@@ -27,7 +27,10 @@ class ParkingConfiguration {
         println("----------------------------------------------------------------")
         println("-------------------- PARKING AREA --------------------")
 
-        val parkingArea = ParkingArea("pa_1", "Pheonix mall, Chennai", "Owner")
+        val childParkingAreaId1 = "childParkingAreaId1"
+        val childParkingAreaId2 = "childParkingAreaId2"
+
+        val parkingArea = ParkingArea("pa_1", "", "Pheonix mall, Chennai", "Owner")
         val pa1 = parkingAreaRepository.save(parkingArea)
 
         println("ParkingConfiguration.databaseInitializer parkingArea = ${parkingArea}")
@@ -35,9 +38,13 @@ class ParkingConfiguration {
 
         println("-------------------- PARKING LOT --------------------")
 
-        val pl1 = parkingLotRepository.save(ParkingLot("pl1", parkingArea.getId()!!))
-        val pl2 = parkingLotRepository.save(ParkingLot("pl2", parkingArea.getId()!!))
-        val pl3 = parkingLotRepository.save(ParkingLot("pl3", parkingArea.getId()!!))
+        val pl1 = parkingLotRepository.save(ParkingLot("pl1", parkingArea.getId()!!, childParkingAreaId1))
+        val pl2 = parkingLotRepository.save(ParkingLot("pl2", parkingArea.getId()!!, childParkingAreaId1))
+        val pl3 = parkingLotRepository.save(ParkingLot("pl3", parkingArea.getId()!!, childParkingAreaId1))
+
+        val pl11 = parkingLotRepository.save(ParkingLot("pl11", parkingArea.getId()!!, childParkingAreaId2))
+        val pl21 = parkingLotRepository.save(ParkingLot("pl21", parkingArea.getId()!!, childParkingAreaId2))
+        val pl31 = parkingLotRepository.save(ParkingLot("pl31", parkingArea.getId()!!, childParkingAreaId2))
 
         println("ParkingConfiguration.databaseInitializer pl1 = ${pl1}")
         println("ParkingConfiguration.databaseInitializer pl2 = ${pl2}")
@@ -60,8 +67,14 @@ class ParkingConfiguration {
         val demand1 = Demand("demand_1", EntityType.PARKING_LOT, vehicle1.id!!, vehicle1toJson)
         val demand2 = Demand("demand_2", EntityType.PARKING_LOT, vehicle1.id!!, vehicle1toJson)
 
+        val demand11 = Demand("demand_11", EntityType.PARKING_LOT, vehicle1.id!!, vehicle1toJson)
+        val demand21 = Demand("demand_21", EntityType.PARKING_LOT, vehicle1.id!!, vehicle1toJson)
+
         val savedDemand1 = demandRepository.save(demand1)
         val savedDemand2 = demandRepository.save(demand2)
+
+        val savedDemand11 = demandRepository.save(demand11)
+        val savedDemand21 = demandRepository.save(demand21)
 
         println("ParkingConfiguration.databaseInitializer demand = ${demand1}")
         println("ParkingConfiguration.databaseInitializer demand = ${demand2}")
@@ -74,8 +87,14 @@ class ParkingConfiguration {
         val dispatch1 = Dispatch("dispatch_1", pl1.id!!, demand1.id!!, 1630644737, 0)
         val dispatch2 = Dispatch("dispatch_2", pl2.id!!, demand1.id!!, 1630644737, 1630644740)
 
+        val dispatch11 = Dispatch("dispatch_11", pl11.id!!, demand11.id!!, 1630644737, 0)
+        val dispatch21 = Dispatch("dispatch_21", pl21.id!!, demand21.id!!, 1630644737, 1630644740)
+
         val savedDispatch1 = dispatchRepository.save(dispatch1)
         val savedDispatch2 = dispatchRepository.save(dispatch2)
+
+        val savedDispatch11 = dispatchRepository.save(dispatch11)
+        val savedDispatch21 = dispatchRepository.save(dispatch21)
 
         println("ParkingConfiguration.databaseInitializer dispatch1 = ${dispatch1}")
         println("ParkingConfiguration.databaseInitializer dispatch2 = ${dispatch2}")

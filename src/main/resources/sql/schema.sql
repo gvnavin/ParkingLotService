@@ -2,7 +2,8 @@ DROP TABLE PARKING_LOT IF EXISTS;;
 
 CREATE TABLE IF NOT EXISTS PARKING_LOT (
     _id                     VARCHAR(60)  PRIMARY KEY,
-    parking_area_id        VARCHAR      NOT NULL
+    parking_area_id         VARCHAR      NOT NULL,
+    child_parking_area_id     VARCHAR    NOT NULL
 );
 
 DROP TABLE PARKING_AREA IF EXISTS;
@@ -10,7 +11,8 @@ DROP TABLE PARKING_AREA IF EXISTS;
 CREATE TABLE IF NOT EXISTS PARKING_AREA (
     _id                    VARCHAR(60)  PRIMARY KEY,
     location               VARCHAR      NOT NULL,
-    owner                  VARCHAR      NOT NULL
+    owner                  VARCHAR      NOT NULL,
+    child_parking_area_ids VARCHAR      NOT NULL
 );
 
 DROP TABLE VEHICLE IF EXISTS;
@@ -36,7 +38,7 @@ CREATE TABLE IF NOT EXISTS DISPATCH (
     _id                    VARCHAR(60)  PRIMARY KEY,
     supply_id              VARCHAR      NOT NULL,
     demand_id              VARCHAR      NOT NULL,
-    start_timestamp        BIGINT      NOT NULL,
+    start_timestamp        BIGINT       NOT NULL,
     end_timestamp          BIGINT
 --     metadata_as_json       VARCHAR      NULLABLE
 );
