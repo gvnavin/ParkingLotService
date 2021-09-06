@@ -5,10 +5,12 @@ import com.gnavin.parkinglotservice.abstraction.dto.ParkingLotDto
 import com.gnavin.parkinglotservice.abstraction.dto.SupplyDto
 import com.gnavin.parkinglotservice.business.parking.crud.ParkingAreaCrudHandler
 import com.gnavin.parkinglotservice.business.parking.crud.ParkingLotCrudHandler
+import com.gnavin.parkinglotservice.business.parking.dbmodels.ParkingArea
 import com.gnavin.parkinglotservice.business.parking.dbmodels.ParkingLot
 import com.gnavin.parkinglotservice.business.parking.handlers.ParkingLotAllocator
 import com.gnavin.parkinglotservice.models.EntityType
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class ParkingService(private val parkingAreaCrudHandler: ParkingAreaCrudHandler,
@@ -39,5 +41,29 @@ class ParkingService(private val parkingAreaCrudHandler: ParkingAreaCrudHandler,
 
     fun findParkingLotByParkedVehicleColor(color: String): List<ParkingLotDto> {
         return parkingLotCrudHandler.findParkingLotByParkedVehicleColor(color)
+    }
+
+    fun saveBulkSupplies(
+        parkingAreaId: String,
+        noOfChildParkingArea: Int,
+        listOfNoOfParkingLotInChildParkingArea: List<Int>
+    ) {
+
+        val childParkingAreaIds = parkingAreaCrudHandler.saveBulkSupplies(parkingAreaId, noOfChildParkingArea)
+
+        listOfNoOfParkingLotInChildParkingArea.forEachIndexed { index, element ->
+
+            val list = IntRange(0, element).map {
+                ParkingLot(
+                    UUID.randomUUID().toString(),
+                    parkingAreaId,
+                    childParkingAreaIds[index]
+                )
+            }
+
+            parkingLotCrudHandler.saveParkingLot(list)
+
+        }
+
     }
 }

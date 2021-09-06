@@ -11,8 +11,11 @@ class ParkingLotSelector {
         return strategy.select(parkingLots)
     }
 
+    //StrategyFactory ->
     fun getStrategy(): ParkingLotSelectionStrategy {
         return ParkingLotDistanceBasedStrategy()
+//        return EvenDistributionStragegy()
+//        return FillFirstStragey()
     }
 
 }

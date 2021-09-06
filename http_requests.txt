@@ -1,0 +1,57 @@
+###
+GET http://localhost:8080/supplies
+
+###
+POST http://localhost:8080/supplies/type/parking_area
+Content-Type: application/json
+
+[
+  {
+    "type": "PARKING_AREA",
+    "entityAsJson": "{\"location\":\"Rolex mall, Chennai\", \"owner\":\"foo\"}"
+  }
+]
+
+###
+POST http://localhost:8080/supplies/type/PARKING_LOT
+Content-Type: application/json
+
+[
+  {
+    "type": "PARKING_LOT",
+    "entityAsJson": "{\"parkingAreaId\":\"e3fd3f6d-a48c-4bed-bbc6-1d8bcb5e9ce3\"}"
+  }
+]
+
+
+###
+POST http://localhost:8080/demand/type/PARKING_LOT
+Content-Type: application/json
+
+[
+  {
+    "type": "PARKING_LOT",
+    "entityAsJson": "{\"_id\":\"TN20B5890\",\"owner\":\"foo\", \"color\":\"black\"}"
+  }
+]
+
+
+
+###
+POST http://localhost:8080/dispatch/start/demandId/demand_1
+Content-Type: application/json
+
+
+###
+POST http://localhost:8080/dispatch/done/dispatchId/dispatch_1
+Content-Type: application/json
+
+###
+GET http://localhost:8080/dispatch/start/type/PARKING_LOT?requiredEntityType=VEHICLE&filterKey1=color&filterValue1=black
+
+###
+GET http://localhost:8080/dispatch/start/type/PARKING_LOT?requiredEntityType=PARKING_LOT&filterKey1=id&filterValue1=TN20B1234
+
+###
+POST http://localhost:8080/bulkSupplies/type/PARKING_AREA?parkingAreaId=pa31&noOfChildParkingArea=2&commaSeperatedNoOfLotsInEachChildParkingArea=2,3
+Content-Type: application/json

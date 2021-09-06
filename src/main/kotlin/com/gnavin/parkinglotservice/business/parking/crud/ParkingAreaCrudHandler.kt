@@ -34,4 +34,14 @@ class ParkingAreaCrudHandler(private val parkingAreaRepository: ParkingAreaRepos
 
         return parkingArea
     }
+
+    fun saveBulkSupplies(parkingAreaId: String, noOfChildParkingArea: Int): List<String> {
+        val childParkingAreaIds = IntRange(0, noOfChildParkingArea).map { UUID.randomUUID().toString() }
+        val childParkingAreaIdsAsString = childParkingAreaIds.toString()
+
+        val parkingArea = ParkingArea(parkingAreaId, childParkingAreaIdsAsString, "location", "owner")
+        parkingAreaRepository.save(parkingArea)
+
+        return childParkingAreaIds
+    }
 }

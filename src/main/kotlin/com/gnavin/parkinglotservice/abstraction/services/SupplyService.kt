@@ -16,4 +16,8 @@ class SupplyService(private val businessHandlerDelegator: BusinessHandlerDelegat
        businessHandlerDelegator.handleSupply(type, supplies)
     }
 
+    fun saveBulkSupplies(type: EntityType, parkingAreaId: String, noOfChildParkingArea: Int, listOfNoOfParkingLotInChildParkingArea: List<Int>) {
+        businessHandlerDelegator.handleSaveBulkSupplies(type, parkingAreaId, noOfChildParkingArea, listOfNoOfParkingLotInChildParkingArea)
+    }
+
 }

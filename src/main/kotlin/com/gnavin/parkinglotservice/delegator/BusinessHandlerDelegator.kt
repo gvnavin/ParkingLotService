@@ -59,4 +59,12 @@ class BusinessHandlerDelegator(val parkingService: ParkingService,
         return emptyList()
     }
 
+    fun handleSaveBulkSupplies(type: EntityType, parkingAreaId: String, noOfChildParkingArea: Int, listOfNoOfParkingLotInChildParkingArea: List<Int>) {
+
+        if (type == EntityType.PARKING_AREA) {
+            parkingService.saveBulkSupplies(parkingAreaId, noOfChildParkingArea, listOfNoOfParkingLotInChildParkingArea);
+        }
+
+    }
+
 }

@@ -4,7 +4,6 @@ import com.gnavin.parkinglotservice.models.EntityType
 import com.gnavin.parkinglotservice.models.GenericResponse
 import com.gnavin.parkinglotservice.abstraction.dto.SupplyDto
 import com.gnavin.parkinglotservice.abstraction.services.SupplyService
-import com.google.gson.Gson
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
@@ -28,6 +27,34 @@ class SupplyResource(val service: SupplyService) {
         println("SupplyResource.saveSupplies supplies = ${supplies}")
 
         service.saveSupplies(EntityType.valueOf(type.uppercase()), supplies)
+        return GenericResponse(200, "SUCCESS",
+            "supplies of type ${type} saved successfully",
+            ""
+        )
+    }
+
+    @PostMapping("/bulkSupplies/type/{type}")
+    fun saveSupplies(@PathVariable type: String,
+                     @RequestParam(name = "parkingAreaId") parkingAreaId: String,
+                     @RequestParam(name = "noOfChildParkingArea") noOfChildParkingArea: Int,
+                     @RequestParam(name = "commaSeperatedNoOfLotsInEachChildParkingArea") commaSeperatedNoOfLotsInEachChildParkingArea: String
+    ): GenericResponse {
+
+        println("SupplyResource.saveSupplies")
+        println("type = [${type}], " +
+                "parkingAreaId = [${parkingAreaId}], " +
+                "noOfChildParkingArea = [${noOfChildParkingArea}], " +
+                "commaSeperatedNoOfLotsInEachChildParkingArea = [${commaSeperatedNoOfLotsInEachChildParkingArea}]")
+
+        val listOfNoOfParkingLotInChildParkingArea = commaSeperatedNoOfLotsInEachChildParkingArea.split(",").map { Integer.valueOf(it) }
+
+        println("list: $listOfNoOfParkingLotInChildParkingArea");
+
+        if (listOfNoOfParkingLotInChildParkingArea.size != noOfChildParkingArea) {
+            throw IllegalArgumentException("Child Parking Count is mismatching")
+        }
+
+        service.saveBulkSupplies(EntityType.valueOf(type.uppercase()), parkingAreaId, noOfChildParkingArea, listOfNoOfParkingLotInChildParkingArea)
         return GenericResponse(200, "SUCCESS",
             "supplies of type ${type} saved successfully",
             ""

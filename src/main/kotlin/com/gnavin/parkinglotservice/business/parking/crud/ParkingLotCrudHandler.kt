@@ -51,7 +51,7 @@ class ParkingLotCrudHandler(
         println("ParkingLotCrudHandler.findAllLotsWithParkingArea parkingArea = $parkingArea")
 
         val parkingLotDtos: List<ParkingLotDto> = parkingLots.map {
-            ParkingLotDto(it.id!!, it.parkingAreaId, parkingArea.owner, parkingArea.location)
+            ParkingLotDto(it.id!!, it.parkingAreaId, it.childParkingAreaId, parkingArea.owner, parkingArea.location)
         }
         println("ParkingLotCrudHandler.findAllLotsWithParkingArea parkingLotDtos = ${parkingLotDtos}")
         return parkingLotDtos
@@ -65,6 +65,10 @@ class ParkingLotCrudHandler(
     fun findParkingLotByParkedVehicleColor(color: String): List<ParkingLotDto> {
         val parkingLots = parkingLotRepository.findParkingLotByParkedVehicleColor(color)
         return mergeParkingLotAndParkingArea(parkingLots)
+    }
+
+    fun saveParkingLot(list: List<ParkingLot>) {
+        parkingLotRepository.saveAll(list)
     }
 
 }
